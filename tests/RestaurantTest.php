@@ -57,7 +57,7 @@
         $neighborhood  = "downtown";
         $must_eats = "tamales";
         $price_range = "hella expensive";
-        $test_Restaurant = new Restaurant(null, $name, $cuisine_id, $neighborhood, "tacos", $price_range);
+        $test_Restaurant = new Restaurant(null, $name, $cuisine_id, $neighborhood, $must_eats, $price_range);
         $test_Restaurant->save();
 
         //Act

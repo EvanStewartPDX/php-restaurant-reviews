@@ -33,22 +33,22 @@ $app->post("/cuisines", function() use ($app) {
 $app->get("/cuisine/{id}", function($id) use ($app) {
   $newCuisine = Cuisine::find($id);
   var_dump($newCuisine);
-  return $app['twig']->render('cuisine.html.twig', array('restaurants' => $newCuisine->getRestaurants(), 'food' => $newCuisine));
+  return $app['twig']->render('cuisine.html.twig', array('restaurants' => $newCuisine->getRestaurants(), 'cuisine' => $newCuisine));
 });
 
-$app->post("/apple", function() use ($app) {
+$app->post("/cuisine/{id}", function($id) use ($app) {
 
-  $id = null;
   $name = $_POST['name'];
   $cuisine_id = $_POST['cuisine_id'];
   $neighborhood = $_POST['neighborhood'];
-  $eats = $_POST['eats'];
+  $must_eats = $_POST['must_eats'];
   $price_range = $_POST['price_range'];
-  $newCuisine = Cuisine::find($cuisine_id);
-  $newRestaurant = new Restaurant($id, $name, $cuisine_id, $neighborhood, $eats, $price_range);
+  $newCuisine = Cuisine::find($id);
+  $newRestaurant = new Restaurant(null, $name, $cuisine_id, $neighborhood, $must_eats, $price_range);
   $newRestaurant->save();
+  var_dump($newRestaurant);
 
-  return $app['twig']->render('cuisine.html.twig', array('restaurants' => $newCuisine->getRestaurants(), 'food' => $newCuisine));
+  return $app['twig']->render('cuisine.html.twig', array('restaurants' => $newCuisine->getRestaurants(), 'cuisine' => $newCuisine));
 });
 
   return $app;
