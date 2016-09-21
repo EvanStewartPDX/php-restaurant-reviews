@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Restaurant Review</title>
+  </head>
+  <body>
+
+    {% if restaurants is not empty %}
+
+      {% for restaurant in restaurants %}
+
+      <a href="#"><p>{{restaurant.name}}</p></a>
+      {% endfor%}
+    {% endif %}
+    <h1>Restaurants</h1>
+
+    <form action="/apple" method='post'>
+      <input type="hidden" name="cuisine_id" value="2">
+      <label for='type'>Name</label>
+      <input type='text' name='name'>
+      <label for='type'>Neighborhood</label>
+      <input type='text' name='neighborhood'>
+      <label for='type'>MustEats</label>
+      <input type='text' name='eats'>
+      <label for='type'>Price Range</label>
+      <input type='text' name='price_range'>
+      <button type='submit'>Submit</button>
+    </form>
+  </body>
+</html>

@@ -5,8 +5,12 @@
  require_once __DIR__."/../src/Restaurant.php";
  date_default_timezone_set('America/Los_Angeles');
 
+ use Symfony\Component\Debug\Debug;
+ Debug::enable();
 
 $app = new Silex\Application();
+
+$app['debug'] = true;
 
 $server = 'mysql:host=localhost;dbname=restaurant';
 $username = 'root';
@@ -26,10 +30,26 @@ $app->post("/cuisines", function() use ($app) {
   return $app['twig']->render('home.html.twig', array('cuisines' => Cuisine::getAll()));
 });
 
-// $app->get("/cuisine/{id}", function($id) use ($app) {
-//   $newCuisine = Cuisine::find($id);
-//   return $app['twig']->render('cuisine' => $newCuisine->getRestaurants());
-// });
+$app->get("/cuisine/{id}", function($id) use ($app) {
+  $newCuisine = Cuisine::find($id);
+  var_dump($newCuisine);
+  return $app['twig']->render('cuisine.html.twig', array('restaurants' => $newCuisine->getRestaurants(), 'food' => $newCuisine));
+});
+
+$app->post("/apple", function() use ($app) {
+
+  $id = null;
+  $name = $_POST['name'];
+  $cuisine_id = $_POST['cuisine_id'];
+  $neighborhood = $_POST['neighborhood'];
+  $eats = $_POST['eats'];
+  $price_range = $_POST['price_range'];
+  $newCuisine = Cuisine::find($cuisine_id);
+  $newRestaurant = new Restaurant($id, $name, $cuisine_id, $neighborhood, $eats, $price_range);
+  $newRestaurant->save();
+
+  return $app['twig']->render('cuisine.html.twig', array('restaurants' => $newCuisine->getRestaurants(), 'food' => $newCuisine));
+});
 
   return $app;
  ?>
