@@ -8,7 +8,7 @@
     <h1>{{cuisine.type}}</h1>
     {% if restaurants is not empty %}
       {% for restaurant in restaurants %}
-      <p> <a href="#">{{restaurant.name}}</a>
+      <p> <a href="/restaurant/{{restaurant.id}}">{{restaurant.name}}</a>
          Type of Restaurant: <span>{{cuisine.type}}</span> Neighborhood: <span>{{restaurant.neighborhood}}</span>
         Must Eats: <span>{{restaurant.must_eats}}</span>
         Price Range:<span>{{restaurant.price_range}}</span></p>
@@ -19,13 +19,18 @@
       <input type="hidden" name="cuisine_id" value="{{cuisine.id}}">
       <label for='type'>Name</label>
       <input type='text' name='name'>
+
       <label for='type'>Neighborhood</label>
       <input type='text' name='neighborhood'>
+
       <label for='type'>MustEats</label>
       <input type='text' name='must_eats'>
+
       <label for='type'>Price Range</label>
       <input type='text' name='price_range'>
+      <br>
       <button type='submit'>Submit</button>
+      <br>
     <a href="/"><button type="button" name="button">Home</button></a>
     </form>
   </body>

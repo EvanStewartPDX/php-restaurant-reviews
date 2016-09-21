@@ -32,7 +32,7 @@ $app->post("/cuisines", function() use ($app) {
 
 $app->get("/cuisine/{id}", function($id) use ($app) {
   $newCuisine = Cuisine::find($id);
-  var_dump($newCuisine);
+
   return $app['twig']->render('cuisine.html.twig', array('restaurants' => $newCuisine->getRestaurants(), 'cuisine' => $newCuisine));
 });
 
@@ -46,10 +46,17 @@ $app->post("/cuisine/{id}", function($id) use ($app) {
   $newCuisine = Cuisine::find($id);
   $newRestaurant = new Restaurant(null, $name, $cuisine_id, $neighborhood, $must_eats, $price_range);
   $newRestaurant->save();
-  var_dump($newRestaurant);
+
 
   return $app['twig']->render('cuisine.html.twig', array('restaurants' => $newCuisine->getRestaurants(), 'cuisine' => $newCuisine));
 });
+
+$app->get('/restaurant/{id}', function($id) use ($app){
+
+  $newRestaurant = Restaurant::find($id);
+  return $app['twig']->render('restaurant.html.twig', array('restaurant' => $newRestaurant));
+});
+
 
   return $app;
  ?>

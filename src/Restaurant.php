@@ -84,7 +84,7 @@
     {
       $found_restaurant = null;
       $allRestaurants = Restaurant::getAll();
-      foreach($allRestaurant as $restaurant){
+      foreach($allRestaurants as $restaurant){
         $restaurant_id = $restaurant->getId();
         if($restaurant_id == $search_id){
           $found_restaurant = $restaurant;
