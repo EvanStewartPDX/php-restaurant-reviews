@@ -4,6 +4,7 @@
     * @backupStaticAttributes disabled
     */
     require_once "src/Cuisine.php";
+    require_once "src/Restaurant.php";
     // require_once "src/Restaurant.php";
     $server = 'mysql:host=localhost;dbname=restaurant_test';
     $username = 'root';
@@ -25,20 +26,24 @@
             //Assert
             $this->assertEquals($type, $result);
         }
-        // function test_getId()
-        // {
-        //   //array_change_key_case
-        //   $type = "Mexican";
-        //   $id = 99;
-        //   $test_Cuisine = new Cuisine($id, $type);
-        //
-        //   //Act
-        //   $result = $test_Cuisine->getId();
-        //
-        //   //Assert
-        //   $this->assertEquals(true, is_numeric($result));
-        //
-        // }
+        function test_getRestaurants()
+        {
+          //array_change_key_case
+          $type = "Italian";
+          $id = 99;
+          $test_Cuisine = new Cuisine($id, $type);
+          $test_Restaurant = new Restaurant(null, "El Rodeo", 4, "NE", "burritos", "cheap");
+          $test_Restaurant2 = new Restaurant(null, "Olive Garden", 99, "Pearl", "tacos", "super cheap");
+          $test_Restaurant->save();
+          $test_Restaurant2->save();
+
+          //Act
+          $result = $test_Cuisine->getRestaurants();
+
+          //Assert
+          $this->assertEquals($test_Restaurant2, $result[0]);
+
+        }
         function test_save()
         {
         //arrange

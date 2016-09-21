@@ -2,15 +2,19 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Restaurant Review</title>
   </head>
   <body>
-    <h1>Allergies</h1>
-    <form action='/results' method='post'>
-      <label for='inputNum'></label>
-      <input type='number' id='inputNum' name='inputNum'>
+    {% if cuisines is not empty %}
+      {% for cuisine in cuisines %}
+      <a href="cuisine/{{cuisine.id}}"><p>{{cuisine.type}}</p></a>
+      {% endfor%}
+    {% endif %}
+    <h1>Cuisines</h1>
+    <form action='/cuisines' method='post'>
+      <label for='type'></label>
+      <input type='text' id='type' name='type'>
       <button type='submit'>Submit</button>
     </form>
-
   </body>
 </html>

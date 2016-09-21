@@ -21,19 +21,21 @@
       $GLOBALS['DB']->exec("INSERT INTO cuisine (type) VALUES ('{$this->getType()}');");
       $this->id = $GLOBALS['DB']->lastInsertId();
     }
-    // function getRestaurants(){
-    //   $restaurant = array();
-    //   $returned_restaurants = $GLOBALS['DB']->query("SELECT * FROM restaurants WHERE cuisine_id = {$this->getId()};");
-    //   foreach($returned_restaurants as $restaurant){
-    //     $id = $restaurant['id'];
-    //     $name = $restaurant['name'];
-    //     $cuisine_id =$restaurant['cuisine_id'];
-    //     $neighborhood = $restaurant['neighborhood'];
-    //     $must_eats = $restaurant['must_eats'];
-    //     $price_range = $restaurant['price_restaurant'];
-    //     $new_restaurant = new Restaurant($id, $name, $cuisine_id, $neighborhood, $must_eats, $price_range);
-    //   }
-    // }
+    function getRestaurants(){
+      $restaurants = array();
+      $returned_restaurants = $GLOBALS['DB']->query("SELECT * FROM restaurants WHERE cuisine_id = {$this->getId()};");
+      foreach($returned_restaurants as $restaurant){
+        $id = $restaurant['id'];
+        $name = $restaurant['name'];
+        $cuisine_id =$restaurant['cuisine_id'];
+        $neighborhood = $restaurant['neighborhood'];
+        $must_eats = $restaurant['must_eats'];
+        $price_range = $restaurant['price_range'];
+        $new_restaurant = new Restaurant($id, $name, $cuisine_id, $neighborhood, $must_eats, $price_range);
+        array_push($restaurants, $new_restaurant);
+      }
+      return $restaurants;
+    }
 
     static function getAll(){
       $returned_cuisines = $GLOBALS['DB']->query("SELECT * FROM cuisine;");
