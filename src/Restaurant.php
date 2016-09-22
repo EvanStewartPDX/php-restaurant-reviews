@@ -87,6 +87,26 @@
       }
       return $allRestaurants;
     }
+
+    static function getAllOrderByRating(){
+      $returned_restaurants = $GLOBALS['DB']->query("SELECT * FROM restaurants ORDER BY rating DESC LIMIT 10;");
+      $allRestaurants = array();
+      if(!empty($returned_restaurants)){
+        foreach($returned_restaurants as $restaurant){
+          $id = $restaurant['id'];
+          $name = $restaurant['name'];
+          $cuisine_id = $restaurant['cuisine_id'];
+          $neighborhood = $restaurant['neighborhood'];
+          $must_eats = $restaurant['must_eats'];
+          $price_range = $restaurant['price_range'];
+          $rating = $restaurant['rating'];
+          $new_restaurant = new Restaurant($id, $name, $cuisine_id, $neighborhood, $must_eats, $price_range, $rating);
+          array_push($allRestaurants, $new_restaurant);
+        }
+      }
+      
+      return $allRestaurants;
+    }
     static function deleteAll()
     {
       $GLOBALS['DB']->exec("DELETE FROM restaurants");

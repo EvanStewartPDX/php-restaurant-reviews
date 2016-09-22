@@ -22,19 +22,19 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array('twig.path' => __
 ));
 
 $app->get("/", function() use ($app) {
-  return $app['twig']->render('home.html.twig', array('cuisines' => Cuisine::getAll()));
+  return $app['twig']->render('home.html.twig', array('cuisines' => Cuisine::getAll(), 'topRestaurants'=> Restaurant::getAllOrderByRating()));
 });
 
 $app->post("/cuisines", function() use ($app) {
   $newCuisine = new Cuisine(null, $_POST['type']);
   $newCuisine->save();
-  return $app['twig']->render('home.html.twig', array('cuisines' => Cuisine::getAll()));
+  return $app['twig']->render('home.html.twig', array('cuisines' => Cuisine::getAll(), 'topRestaurants'=> Restaurant::getAllOrderByRating()));
 });
 
 $app->get("/cuisine/{id}", function($id) use ($app) {
   $newCuisine = Cuisine::find($id);
 
-  return $app['twig']->render('cuisine.html.twig', array('restaurants' => $newCuisine->getRestaurants(), 'cuisine' => $newCuisine));
+  return $app['twig']->render('cuisine.html.twig', array('cuisines' => Cuisine::getAll(),'restaurants' => $newCuisine->getRestaurants(), 'cuisine' => $newCuisine, 'topRestaurants'=> Restaurant::getAllOrderByRating()));
 });
 
 $app->post("/cuisine/{id}", function($id) use ($app) {
@@ -48,36 +48,35 @@ $app->post("/cuisine/{id}", function($id) use ($app) {
   $newRestaurant = new Restaurant(null, $name, $cuisine_id, $neighborhood, $must_eats, $price_range);
   $newRestaurant->save();
 
-  var_dump($newRestaurant);
-  return $app['twig']->render('cuisine.html.twig', array('restaurants' => $newCuisine->getRestaurants(), 'cuisine' => $newCuisine));
+  return $app['twig']->render('cuisine.html.twig', array('cuisines' => Cuisine::getAll(), 'restaurants' => $newCuisine->getRestaurants(), 'cuisine' => $newCuisine,  'topRestaurants'=> Restaurant::getAllOrderByRating()));
 });
 
 $app->get('/restaurant/{id}', function($id) use ($app){
 
   $newRestaurant = Restaurant::find($id);
 
-  return $app['twig']->render('restaurant.html.twig', array('restaurant' => $newRestaurant, 'reviews' => $newRestaurant->getReviews()));
+  return $app['twig']->render('restaurant.html.twig', array('cuisines' => Cuisine::getAll(),'restaurant' => $newRestaurant, 'reviews' => $newRestaurant->getReviews(), 'topRestaurants'=> Restaurant::getAllOrderByRating()));
 });
 
 $app->post('/restaurant/{id}', function($id) use ($app){
     $newRestaurant = Restaurant::find($id);
     $newReview = new Reviews(null, $_POST['review'], $_POST['restaurant_id'], $_POST['author']);
     $newReview->save();
-    return $app['twig']->render('restaurant.html.twig', array('restaurant' => $newRestaurant, 'reviews' => $newRestaurant->getReviews()));
+    return $app['twig']->render('restaurant.html.twig', array('cuisines' => Cuisine::getAll(), 'restaurant' => $newRestaurant, 'reviews' => $newRestaurant->getReviews(),'topRestaurants'=> Restaurant::getAllOrderByRating()));
 });
 
 $app->get('/author/{id}', function($id) use ($app){
     $newReview = Reviews::find($id);
     $dump = $newReview->getReviewsByAuthor();
-    var_dump($dump);
-    return $app['twig']->render('author.html.twig', array('newReview' => $newReview));
+    // var_dump($dump);
+    return $app['twig']->render('author.html.twig', array('cuisines' => Cuisine::getAll(),'topRestaurants'=> Restaurant::getAllOrderByRating(), 'reviews' => $dump));
 });
 
 $app->post('/rating/{id}', function($id) use ($app){
     $newRestaurant = Restaurant::find($id);
     $newRestaurant->addLike();
     var_dump($newRestaurant);
-    return $app['twig']->render('restaurant.html.twig', array('restaurant' => $newRestaurant, 'reviews' => $newRestaurant->getReviews()));
+    return $app['twig']->render('restaurant.html.twig', array('cuisines' => Cuisine::getAll(), 'restaurant' => $newRestaurant, 'reviews' => $newRestaurant->getReviews(), 'topRestaurants'=> Restaurant::getAllOrderByRating()));
 });
 
 

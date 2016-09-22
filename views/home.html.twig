@@ -5,16 +5,41 @@
     <title>Restaurant Review</title>
   </head>
   <body>
-    {% if cuisines is not empty %}
-      {% for cuisine in cuisines %}
-      <a href="cuisine/{{cuisine.id}}"><p>{{cuisine.type}}</p></a>
-      {% endfor%}
-    {% endif %}
-    <h1>Cuisines</h1>
-    <form action='/cuisines' method='post'>
-      <label for='type'></label>
-      <input type='text' id='type' name='type'>
-      <button type='submit'>Submit</button>
+      <div class="container">
+          <div class="well">
+              <h1>Burnt Toast</h1>
+              <p>A Restaurant ood guide for people Who think they know how to run a restaurant  </p>
+          </div>
+          <div class="col col-xs-2">
+              <h1>Search By Cuisine</h1>
+              {% if cuisines is not empty %}
+                {% for cuisine in cuisines %}
+                <a href="cuisine/{{cuisine.id}}"><p>{{cuisine.type}}</p></a>
+                {% endfor%}
+              {% endif %}
+              <p>If your cuisine is not listed, enter it in here </p>
+              <form action='/cuisines' method='post'>
+                <label for='type'></label>
+                <input type='text' id='type' name='type'>
+                <button type='submit'>Submit</button>
+          </div>
+          <div class="col col-xs-7">
+              <h1 class = "featuredRestaurants">Featured Restaurants<br> </h1>
+
+          </div>
+          <div class="col col-xs-3">
+              <h1>Top Rated Restaurants</h1>
+                <ol>
+                    {% if topRestaurants is not empty %}
+                      {% for restaurant in topRestaurants %}
+                        <li><a href="/restaurant/{{restaurant.id}}"><p>{{restaurant.name}}</p></a></li>
+                      {% endfor%}
+                    {% endif %}
+                </ol>
+          </div>
+      </div>
+
+
     </form>
   </body>
 </html>

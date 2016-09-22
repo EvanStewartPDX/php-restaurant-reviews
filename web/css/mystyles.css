@@ -1,0 +1,53 @@
+body{
+    background: url('/img/burnt2.jpg') center center no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+.well{
+    background: transparent;
+    border: none;
+    color: white;
+    text-align: center;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+
+
+}
+.well h1{
+    font-family: 'Lobster' !important;
+    font-size: 6em !important;
+    text-shadow: 0px 0px 8px white !important;
+}
+.well p {
+    font-family: 'Play', sans-serif;
+}
+.container{
+    background: rgba(255, 255, 255, 0.3);
+    min-height:  100% !important;
+
+}
+.col h1, h3{
+    font-family: 'Play', sans-serif !important;
+    color: white;
+    text-shadow: 0px 0px 15px black !important;
+    padding: auto 0px;
+    border-bottom: 1px solid white;
+}
+
+.featuredRestaurants{
+    line-height: 2.185em;
+    text-align: center;
+}
+div p{
+    text-shadow: 0px 0px 15px black !important;
+    color: white;
+}
+a p:hover{
+    background: rgba(255, 255, 255, .9) !important;
+    border: 1px solid white;
+    color: white;
+}
+a{
+    text-align: center;
+    text-transform: uppercase;
+}

@@ -1,39 +1,79 @@
+
+
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Restaurant Outline</title>
+    <title>Restaurant Review</title>
   </head>
   <body>
-    <h1> {{restaurant.name}} </h1>
-     Must Eats: <span>{{restaurant.must_eats}}</span><br>
-     Price Range:<span>{{restaurant.price_range}}</span> </p>
-     <br>
-    <form class="" action="/rating/{{restaurant.id}}" method="post">
-        <button type="submit" name="button">Like</button>
+      <div class="container">
+          <div class="well">
+              <h1>Burnt Toast</h1>
+              <p>A Restaurant ood guide for people Who think they know how to run a restaurant  </p>
+          </div>
+          <div class="col col-xs-2">
+              <h1>Search By Cuisine</h1>
+              {% if cuisines is not empty %}
+                {% for cuisine in cuisines %}
+                <a href="/cuisine/{{cuisine.id}}"><p>{{cuisine.type}}</p></a>
+                {% endfor%}
+              {% endif %}
+              <p>If your cuisine is not listed, enter it in here </p>
+              <form action='/cuisines' method='post'>
+                <label for='type'></label>
+                <input type='text' id='type' name='type'>
+                <button type='submit'>Submit</button>
+          </div>
+          <div class="col col-xs-7">
+
+              <h1 class = "featuredRestaurants"> {{restaurant.name}} </h1>
+               <h3>Must Eats:</h3> <p>{{restaurant.must_eats}}</p><br>
+               <h3>Neighborhood:</h3> <p>{{restaurant.neighborhood}}</p><br>
+               <h3>Price Range:</h3><p>{{restaurant.price_range}}</p>
+               <br>
+              <form class="">
+              </form>
+              <form class="" action="/rating/{{restaurant.id}}" method="post">
+                  <button type="submit" name="button">Like</button>
+              </form>
+               <div class= 'enterReviews'>
+                 <form action="/restaurant/{{restaurant.id}}" method='post'>
+                   <input type="hidden" name="restaurant_id" value="{{restaurant.id}}">
+                   <label for='type'>Leave a Review</label>
+                   <input type='text' name='review'>
+                   <label for='type'>Reviewer Name</label>
+                   <input type='text' name='author'>
+                   <button type="submit" name="button">Submit Review</button>
+              <h1> Reviews </h1>
+              <p>
+                 <a href="/"><button type="button" name="button">Home</button></a>
+                 </form>
+                 <div class="displayReviews">
+                     {% if reviews is not empty %}
+                         {%for review in reviews%}
+                         {{review.review}}<br>
+                         by <a href="/author/{{review.id}}"> {{review.author}}</a><br>
+                         {% endfor %}
+                     {% endif %}
+                 </div>
+
+               </div>
+
+          </div>
+          <div class="col col-xs-3">
+              <h1>Top Rated Restaurants</h1>
+                <ol>
+                    {% if topRestaurants is not empty %}
+                      {% for restaurant in topRestaurants %}
+                        <li><a href="/restaurant/{{restaurant.id}}"><p>{{restaurant.name}}</p></a></li>
+                      {% endfor%}
+                    {% endif %}
+                </ol>
+          </div>
+      </div>
+
+
     </form>
-     <div class= 'enterReviews'>
-       <form action="/restaurant/{{restaurant.id}}" method='post'>
-         <input type="hidden" name="restaurant_id" value="{{restaurant.id}}">
-         <label for='type'>Leave a Review</label>
-         <input type='text' name='review'>
-         <label for='type'>Reviewer Name</label>
-         <input type='text' name='author'>
-         <button type="submit" name="button">Submit Review</button>
-    <h1> Reviews </h1>
-    <p>
-       <a href="/"><button type="button" name="button">Home</button></a>
-       </form>
-       <div class="displayReviews">
-           {% if reviews is not empty %}
-               {%for review in reviews%}
-               {{review.review}}<br>
-               by <a href="/author/{{review.id}}"> {{review.author}}</a><br>
-               {% endfor %}
-           {% endif %}
-
-       </div>
-
-     </div>
   </body>
 </html>
