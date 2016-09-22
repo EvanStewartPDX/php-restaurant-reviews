@@ -59,12 +59,14 @@
     }
     function save()
     {
-      $GLOBALS['DB']->exec("INSERT INTO restaurants (name, cuisine_id, neighborhood, must_eats, price_range) VALUES (
+      $GLOBALS['DB']->exec("INSERT INTO restaurants (name, cuisine_id, neighborhood, must_eats, price_range, rating) VALUES (
       '{$this->getName()}',
       {$this->getCuisine_id()},
       '{$this->getNeighborhood()}',
       '{$this->getMust_eats()}',
-      '{$this->getPrice_range()}');");
+      '{$this->getPrice_range()}',
+      '{$this->getRating()}');
+      ");
       $this->id = $GLOBALS['DB']->lastInsertId();
     }
     static function getAll(){
@@ -78,7 +80,8 @@
           $neighborhood = $restaurant['neighborhood'];
           $must_eats = $restaurant['must_eats'];
           $price_range = $restaurant['price_range'];
-          $new_restaurant = new Restaurant($id, $name, $cuisine_id, $neighborhood, $must_eats, $price_range);
+          $rating = $restaurant['rating'];
+          $new_restaurant = new Restaurant($id, $name, $cuisine_id, $neighborhood, $must_eats, $price_range, $rating);
           array_push($allRestaurants, $new_restaurant);
         }
       }
