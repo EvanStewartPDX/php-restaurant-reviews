@@ -7,14 +7,16 @@
     private $neighborhood;
     private $must_eats;
     private $price_range;
+    private $rating;
 
-    function __construct($id = null, $name, $cuisine_id, $neighborhood, $must_eats, $price_range){
+    function __construct($id = null, $name, $cuisine_id, $neighborhood, $must_eats, $price_range, $rating=0){
       $this->id = $id;
       $this->name = $name;
       $this->cuisine_id = $cuisine_id;
       $this->neighborhood = $neighborhood;
       $this->must_eats = $must_eats;
       $this->price_range = $price_range;
+      $this->rating = $rating;
     }
     function getId (){
       return $this->id;
@@ -48,6 +50,12 @@
     }
     function getPrice_range(){
       return $this->price_range;
+    }
+    function setRating($new_rating){
+      $this->rating = $new_rating;
+    }
+    function getRating(){
+      return $this->rating;
     }
     function save()
     {

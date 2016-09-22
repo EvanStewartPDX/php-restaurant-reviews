@@ -26,7 +26,7 @@
            {% if reviews is not empty %}
                {%for review in reviews%}
                {{review.review}}<br>
-               by <a href="#"> {{review.author}}</a><br>
+               by <a href="/author/{{review.id}}"> {{review.author}}</a><br>
                {% endfor %}
            {% endif %}
 

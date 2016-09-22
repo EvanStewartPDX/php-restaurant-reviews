@@ -65,12 +65,13 @@ $app->post('/restaurant/{id}', function($id) use ($app){
     $newReview->save();
     return $app['twig']->render('restaurant.html.twig', array('restaurant' => $newRestaurant, 'reviews' => $newRestaurant->getReviews()));
 });
-// $app->get('/author/{id}', function($id) use ($app){
-//     $newRestaurant = Reviews::find($id);
-//     $newReview = new Reviews(null, $_POST['review'], $_POST['restaurant_id'], $_POST['author']);
-//     $newReview->save();
-//     return $app['twig']->render('restaurant.html.twig', array('restaurant' => $newRestaurant, 'reviews' => $newRestaurant->getReviews()));
-// });
+
+$app->get('/author/{id}', function($id) use ($app){
+    $newReview = Reviews::find($id);
+    $dump = $newReview->getReviewsByAuthor();
+    var_dump($dump);
+    return $app['twig']->render('author.html.twig', array('newReview' => $newReview));
+});
 
 
   return $app;

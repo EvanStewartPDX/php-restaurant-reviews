@@ -5,6 +5,7 @@
     private $review;
     private $restaurant_id;
     private $author;
+    
 
     function __construct($id=null, $review, $restaurant_id, $author){
       $this->id = $id;
@@ -59,7 +60,43 @@
       }
       return $allReviews;
     }
+    static function find($search_id)
+    {
+        $found_review = null;
+        $allReviews = Reviews::getAll();
+        foreach($allReviews as $review){
+          $review_id = $review->getId();
+          if($review_id == $search_id){
+            $found_review = $review;
+          }
+        }
+        return $found_review;
+    }
+    function getReviewsByAuthor(){
+      $returned_reviews = $GLOBALS['DB']->query("SELECT * FROM reviews WHERE author = '{$this->getAuthor()}';");
+      $returned_restaurants = Restaurant::getAll();
 
+      $restaurantIdName = array();
+      if(!empty($returned_restaurants)){
+        foreach($returned_restaurants as $restaurant){
+            $id = $restaurant->getId();
+            $name = $restaurant->getName();
+            $restaurantIdName[$id] =$name;
+        }
+      }
+      $allReviews= array();
+      if(!empty($returned_reviews)){
+        foreach($returned_reviews as $review){
+          $id = $review['id'];
+          $author = $review['author'];
+          $restaurant_name = $restaurantIdName[$review['restaurant_id']];
+          $review = $review['reviews'];
+          $new_review = new Reviews($id, $review, $restaurant_name, $author);
+          array_push($allReviews, $new_review);
+        }
+      }
+      return $allReviews;
+    }
 
   }
 
