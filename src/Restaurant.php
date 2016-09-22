@@ -116,5 +116,9 @@
       }
       return $reviews;
     }
+    function addLike(){
+        $this->rating ++;
+         $GLOBALS['DB']->exec("UPDATE restaurants SET rating = '{$this->getRating()}' WHERE id = {$this->getId()};");
+  }
   }
  ?>

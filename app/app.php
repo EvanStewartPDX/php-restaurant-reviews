@@ -73,6 +73,13 @@ $app->get('/author/{id}', function($id) use ($app){
     return $app['twig']->render('author.html.twig', array('newReview' => $newReview));
 });
 
+$app->post('/rating/{id}', function($id) use ($app){
+    $newRestaurant = Restaurant::find($id);
+    $newRestaurant->addLike();
+    var_dump($newRestaurant);
+    return $app['twig']->render('restaurant.html.twig', array('restaurant' => $newRestaurant, 'reviews' => $newRestaurant->getReviews()));
+});
+
 
   return $app;
  ?>
