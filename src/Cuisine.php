@@ -31,7 +31,8 @@
         $neighborhood = $restaurant['neighborhood'];
         $must_eats = $restaurant['must_eats'];
         $price_range = $restaurant['price_range'];
-        $new_restaurant = new Restaurant($id, $name, $cuisine_id, $neighborhood, $must_eats, $price_range);
+        $rating = $restaurant['rating'];
+        $new_restaurant = new Restaurant($id, $name, $cuisine_id, $neighborhood, $must_eats, $price_range, $rating);
         array_push($restaurants, $new_restaurant);
       }
       return $restaurants;
