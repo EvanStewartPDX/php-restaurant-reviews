@@ -10,7 +10,7 @@
      Price Range:<span>{{restaurant.price_range}}</span> </p>
      <br>
      <a href="/restaurant{{restaurant.id}}"><button type="button" name="button">Home</button></a>
-     <div class= 'reviews'>
+     <div class= 'enterReviews'>
        <form action="/restaurant/{{restaurant.id}}" method='post'>
          <input type="hidden" name="restaurant_id" value="{{restaurant.id}}">
          <label for='type'>Leave a Review</label>
@@ -22,6 +22,15 @@
     <p>
        <a href="/"><button type="button" name="button">Home</button></a>
        </form>
+       <div class="displayReviews">
+           {% if reviews is not empty %}
+               {%for review in reviews%}
+               {{review.review}}<br>
+               by <a href="#"> {{review.author}}</a><br>
+               {% endfor %}
+           {% endif %}
+
+       </div>
 
      </div>
   </body>

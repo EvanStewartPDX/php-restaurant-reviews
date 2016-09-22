@@ -3,6 +3,7 @@
  require_once __DIR__."/../vendor/autoload.php";
  require_once __DIR__."/../src/Cuisine.php";
  require_once __DIR__."/../src/Restaurant.php";
+ require_once __DIR__."/../src/Reviews.php";
  date_default_timezone_set('America/Los_Angeles');
 
  use Symfony\Component\Debug\Debug;
@@ -55,15 +56,15 @@ $app->get('/restaurant/{id}', function($id) use ($app){
 
   $newRestaurant = Restaurant::find($id);
 
-  return $app['twig']->render('restaurant.html.twig', array('restaurant' => $newRestaurant));
+  return $app['twig']->render('restaurant.html.twig', array('restaurant' => $newRestaurant, 'reviews' => $newRestaurant->getReviews()));
 });
 
-// $app->post('/restaurant/{id}', function($id) use ($app){
-//     $newResturant = Restaurant::find($id);
-//     $newReview = new Review(null, $_POST['review'], $_POST['restaurant_id'], $_POST['author']);
-//     $newReview->save();
-//     return $app['twig']->render('restaurant.html.twig', array('restaurant' => $newRestaurant, 'reviews' => $newResturant->getReviews()));
-// });
+$app->post('/restaurant/{id}', function($id) use ($app){
+    $newRestaurant = Restaurant::find($id);
+    $newReview = new Reviews(null, $_POST['review'], $_POST['restaurant_id'], $_POST['author']);
+    $newReview->save();
+    return $app['twig']->render('restaurant.html.twig', array('restaurant' => $newRestaurant, 'reviews' => $newRestaurant->getReviews()));
+});
 
 
 
