@@ -92,5 +92,18 @@
       }
       return $found_restaurant;
     }
+    function getReviews(){
+      $reviews = array();
+      $returned_reviews = $GLOBALS['DB']->query("SELECT * FROM reviews WHERE restaurant_id = {$this->getId()};");
+      foreach($returned_reviews as $review){
+        $id = $review['id'];
+        $reviewText= $review['reviews'];
+        $restaurant_id =$review['restaurant_id'];
+        $author = $review['author'];
+        $new_review = new Reviews($id, $reviewText, $restaurant_id, $author);
+        array_push($reviews, $new_review);
+      }
+      return $reviews;
+    }
   }
  ?>

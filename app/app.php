@@ -54,8 +54,18 @@ $app->post("/cuisine/{id}", function($id) use ($app) {
 $app->get('/restaurant/{id}', function($id) use ($app){
 
   $newRestaurant = Restaurant::find($id);
+
   return $app['twig']->render('restaurant.html.twig', array('restaurant' => $newRestaurant));
 });
+
+// $app->post('/restaurant/{id}', function($id) use ($app){
+//     $newResturant = Restaurant::find($id);
+//     $newReview = new Review(null, $_POST['review'], $_POST['restaurant_id'], $_POST['author']);
+//     $newReview->save();
+//     return $app['twig']->render('restaurant.html.twig', array('restaurant' => $newRestaurant, 'reviews' => $newResturant->getReviews()));
+// });
+
+
 
 
   return $app;

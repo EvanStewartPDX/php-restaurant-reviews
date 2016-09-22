@@ -22,8 +22,21 @@
           $test_review = new Reviews("d", "some text", "3", $test_author);
 
           $result = $test_review->getAuthor();
-          var_dump($test_review);
+
           $this->assertEquals($test_author, $result);
         }
+        function test_save()
+        {
+
+          $test_review = new Reviews("d", "some text", "3", "sam");
+          $test_review->save();
+
+
+          $allReviews = Reviews::getAll();
+          $result = $allReviews[0];
+         
+          $this->assertEquals($test_review, $result);
+        }
+
     }
 ?>

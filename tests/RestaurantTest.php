@@ -4,6 +4,7 @@
     * @backupStaticAttributes disabled
     */
     require_once "src/Restaurant.php";
+    require_once "src/Reviews.php";
     // require_once "src/Restaurant.php";
     $server = 'mysql:host=localhost;dbname=restaurant_test';
     $username = 'root';
@@ -15,6 +16,7 @@
         protected function tearDown()
         {
           Restaurant::deleteAll();
+          Reviews::deleteAll();
         }
         function test_getName()
         {
@@ -80,6 +82,23 @@
 
 
           $this->assertEquals([$test_Restaurant, $test_Restaurant2], $allRestaurants);
+        }
+        function test_getReviews(){
+
+            $test_Restaurant = new Restaurant(4, "El Rodeo", 4, "NE", "burritos", "cheap");
+            $test_review = new Reviews(null, "delicious", 4, "sam");
+            $test_review->save();
+            $test_review2 = new Reviews(null, "it was awful", 555, "barbara");
+            $test_review2->save();
+
+            $returned_reviews = $test_Restaurant->getReviews();
+            $result = $returned_reviews[0];
+
+            // var_dump($returned_reviews);
+
+            $this->assertEquals($test_review, $result);
+
+
         }
       }
 ?>

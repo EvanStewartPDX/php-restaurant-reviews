@@ -2,20 +2,24 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Restaurant Review</title>
+    <title>Restaurant Outline</title>
   </head>
   <body>
     <h1> {{restaurant.name}} </h1>
-      <p> Neighborhood: <span>{{restaurant.neighborhood}}</span><br>
      Must Eats: <span>{{restaurant.must_eats}}</span><br>
      Price Range:<span>{{restaurant.price_range}}</span> </p>
      <br>
-     <a href="/"><button type="button" name="button">Home</button></a>
+     <a href="/restaurant{{restaurant.id}}"><button type="button" name="button">Home</button></a>
      <div class= 'reviews'>
-       <form action="#" method='post'>
+       <form action="/restaurant/{{restaurant.id}}" method='post'>
+         <input type="hidden" name="restaurant_id" value="{{restaurant.id}}">
          <label for='type'>Leave a Review</label>
          <input type='text' name='review'>
-
+         <label for='type'>Reviewer Name</label>
+         <input type='text' name='author'>
+         <button type="submit" name="button">Submit Review</button>
+    <h1> Reviews </h1>
+    <p>
        <a href="/"><button type="button" name="button">Home</button></a>
        </form>
 

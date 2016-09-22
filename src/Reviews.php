@@ -34,13 +34,32 @@
       return $this->author;
     }
     function save(){
-      $GLOBALS['DB']->exec("INSERT INTO reviews (review, restaurant_id, author) VALUES ('{$this->getReview()}',{$this->getRestaurant_id()}, '{$this->getAuthor()}');");
+      $GLOBALS['DB']->exec("INSERT INTO reviews (reviews, restaurant_id, author) VALUES (
+          '{$this->getReview()}',
+          '{$this->getRestaurant_id()}',
+          '{$this->getAuthor()}');");
       $this->id = $GLOBALS['DB']->lastInsertId();
     }
     static function deleteAll()
     {
       $GLOBALS['DB']->exec("DELETE FROM reviews");
     }
+    static function getAll(){
+      $returned_reviews = $GLOBALS['DB']->query("SELECT * FROM reviews;");
+      $allReviews= array();
+      if(!empty($returned_reviews)){
+        foreach($returned_reviews as $review){
+          $id = $review['id'];
+          $author = $review['author'];
+          $restaurant_id = $review['restaurant_id'];
+          $review = $review['reviews'];
+          $new_review = new Reviews($id, $review, $restaurant_id, $author);
+          array_push($allReviews, $new_review);
+        }
+      }
+      return $allReviews;
+    }
+
 
   }
 
